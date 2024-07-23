@@ -3,6 +3,7 @@ import { Colors } from "@/styles";
 
 export default StyleSheet.create({
   input: {
+    flex: 1,
     borderRadius: 8,
     padding: 16,
     backgroundColor: Colors.base.gray500,

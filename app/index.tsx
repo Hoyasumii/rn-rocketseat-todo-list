@@ -9,7 +9,9 @@ import {
 import { useState } from "react";
 
 import styles from "./index.styles";
-import { Input } from "@/components";
+import { Button, Input } from "@/components";
+import { Header } from "@/elements";
+import { Colors } from "@/styles";
 
 export default function Index() {
   const [value, setValue] = useState<string>("");
@@ -24,19 +26,16 @@ export default function Index() {
         }
       }}
     >
-      <SafeAreaView style={styles.container}>
-        <Image
-          source={require(`@/assets/images/logo.png`)}
-          style={{ maxWidth: "30%", objectFit: "contain" }}
-        />
-        <Input
-          value={value}
-          setValue={setValue}
-          placeholder="Adicione uma nova tarefa"
+      <View style={styles.container}>
+        <Header
+          imageSrc={require("@/assets/images/logo.png")}
           active={active}
           setActive={setActive}
+          value={value}
+          setValue={setValue}
         />
-      </SafeAreaView>
+        <View style={styles.taskArea}></View>
+      </View>
     </TouchableWithoutFeedback>
   );
 }
