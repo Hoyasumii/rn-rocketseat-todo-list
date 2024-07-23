@@ -6,6 +6,10 @@ type Tasks = {
   append(data: Omit<Task, "id">): void;
   remove(id: string): void;
   onlyFinished(): Array<Task> | null;
+  totalCount: number;
+  finishedCount: number;
+  show: "total" | "finished";
+  setShow(target: "total" | "finished"): void;
 };
 
 export default create<Tasks>()((set) => ({
@@ -13,6 +17,8 @@ export default create<Tasks>()((set) => ({
   append(data) {
     set((prev) => ({
       tasks: [...prev.tasks, { id: crypto.randomUUID(), ...data }],
+      totalCount: prev.tasks.length,
+      finishedCount: prev.tasks.filter((item) => item.finished).length,
     }));
   },
   remove(id) {
@@ -21,9 +27,17 @@ export default create<Tasks>()((set) => ({
 
     set((prev) => ({
       tasks: [...prev.tasks.filter((item) => item.id !== id)],
+      totalCount: prev.tasks.length,
+      finishedCount: prev.tasks.filter((item) => item.finished).length,
     }));
   },
   onlyFinished() {
     return this.tasks;
+  },
+  totalCount: 0,
+  finishedCount: 0,
+  show: "total",
+  setShow(target) {
+    set(() => ({ show: target }));
   },
 }));

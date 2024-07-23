@@ -9,6 +9,12 @@ export default StyleSheet.create({
   taskArea: {
     backgroundColor: Colors.base.gray600,
     flex: 1,
-    zIndex: -1
-  }
+    zIndex: -1,
+    paddingHorizontal: 15,
+    paddingTop: 45,
+    gap: 15,
+  },
+  taskAreaList: {
+    flex: 1,
+  },
 });

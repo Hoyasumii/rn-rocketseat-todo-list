@@ -5,15 +5,17 @@ export default StyleSheet.create({
   container: {
     backgroundColor: Colors.base.gray700,
     padding: 24,
+    paddingHorizontal: 10,
     justifyContent: "center",
     alignItems: "center",
     position: "relative",
     gap: 5,
     marginBottom: 20,
+    
   },
   image: {
-    width: "35%",
-    objectFit: "contain"
+    minWidth: "35%",
+    minHeight: 90,
   },
   input: {
     position: "absolute",

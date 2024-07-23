@@ -1,10 +1,11 @@
-import { Image, ImageSourcePropType, View } from "react-native";
+import { View } from "react-native";
+import { Image, ImageSource } from "expo-image";
 import styles from "./Header.styles";
 import { Button, Input } from "@/components";
 import { SetState } from "@/types";
 
 type HeaderProps = {
-  imageSrc: ImageSourcePropType;
+  imageSrc: ImageSource;
   value: string;
   setValue: SetState<string>;
   active: boolean;
@@ -18,9 +19,10 @@ export function Header({
   setValue,
   value,
 }: HeaderProps) {
+
   return (
     <View style={styles.container}>
-      <Image source={imageSrc} style={styles.image} />
+      <Image style={styles.image} source={imageSrc}  contentFit="contain" />
       <View style={styles.input}>
         <Input
           value={value}

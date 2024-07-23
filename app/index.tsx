@@ -1,21 +1,21 @@
 import {
   Text,
   View,
-  SafeAreaView,
   TouchableWithoutFeedback,
   Keyboard,
-  Image,
+  FlatList,
+  TouchableOpacity,
 } from "react-native";
 import { useState } from "react";
-
-import styles from "./index.styles";
-import { Button, Input } from "@/components";
-import { Header } from "@/elements";
 import { Colors } from "@/styles";
+import styles from "./index.styles";
+import { Controller, EmptyList, Header } from "@/elements";
+import { useTasks } from "@/storage";
 
 export default function Index() {
   const [value, setValue] = useState<string>("");
   const [active, setActive] = useState<boolean>(false);
+  const { totalCount, finishedCount } = useTasks();
 
   return (
     <TouchableWithoutFeedback
@@ -34,7 +34,20 @@ export default function Index() {
           value={value}
           setValue={setValue}
         />
-        <View style={styles.taskArea}></View>
+        <View style={styles.taskArea}>
+          <Controller
+            value={[{ title: "Criadas" }, { title: "Finalizadas" }]}
+          />
+          <FlatList<string>
+            style={styles.taskAreaList}
+            data={[]}
+            keyExtractor={(i) => i}
+            renderItem={({ item, index }) => {
+              return <Text>item</Text>;
+            }}
+            ListEmptyComponent={EmptyList}
+          />
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );

@@ -11,7 +11,7 @@ export default StyleSheet.create({
   },
   createText: {
     color: Colors.base.gray100,
-    fontSize: 20,
+    fontSize: 16,
   },
   delete: {
     backgroundColor: Colors.base.gray400,
