@@ -17,4 +17,7 @@ export default StyleSheet.create({
   taskAreaList: {
     flex: 1,
   },
+  taskAreaSeparator: {
+    height: 10
+  }
 });

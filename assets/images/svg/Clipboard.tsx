@@ -6,7 +6,7 @@ type ClipboardProps = {
   height?: NumberProp;
 }
 
-export function Clipboard({ width, height }: ClipboardProps) {
+export function Clipboard({ width = 50, height = 50 }: ClipboardProps) {
   return (
     <Svg width={width} height={height} viewBox="0 0 57 56" fill="none">
       <Rect x="0.5" width="56" height="56" fill="url(#pattern0_401_140)" />

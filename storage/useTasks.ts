@@ -1,13 +1,13 @@
 import { Task } from "@/types";
+import uuid from "react-native-uuid";
 import { create } from "zustand";
 
 type Tasks = {
   tasks: Array<Task>;
-  append(data: Omit<Task, "id">): void;
+  append(data: Omit<Task, "id" | "finished">): void;
+  change(id: string): void;
   remove(id: string): void;
-  onlyFinished(): Array<Task> | null;
-  totalCount: number;
-  finishedCount: number;
+  onlyFinished: Array<Task>;
   show: "total" | "finished";
   setShow(target: "total" | "finished"): void;
 };
@@ -16,26 +16,32 @@ export default create<Tasks>()((set) => ({
   tasks: [],
   append(data) {
     set((prev) => ({
-      tasks: [...prev.tasks, { id: crypto.randomUUID(), ...data }],
-      totalCount: prev.tasks.length,
-      finishedCount: prev.tasks.filter((item) => item.finished).length,
+      tasks: [
+        ...prev.tasks,
+        { id: uuid.v4().toString(), finished: false, ...data },
+      ],
+      onlyFinished: prev.tasks.filter((task) => task.finished),
     }));
+  },
+  change(id) {
+    set((prev) => {
+      const tasks = prev.tasks.map((task) =>
+        task.id === id ? { ...task, finished: !task.finished } : task
+      );
+      const onlyFinished = tasks.filter((task) => task.finished);
+
+      return { tasks, onlyFinished };
+    });
   },
   remove(id) {
-    if (!this.tasks.find((item) => item.id === id))
-      throw new Error("Invalid Item");
+    set((prev) => {
+      const tasks = prev.tasks.filter((task) => task.id !== id);
+      const onlyFinished = tasks.filter((task) => task.finished);
 
-    set((prev) => ({
-      tasks: [...prev.tasks.filter((item) => item.id !== id)],
-      totalCount: prev.tasks.length,
-      finishedCount: prev.tasks.filter((item) => item.finished).length,
-    }));
+      return { tasks, onlyFinished };
+    });
   },
-  onlyFinished() {
-    return this.tasks;
-  },
-  totalCount: 0,
-  finishedCount: 0,
+  onlyFinished: [],
   show: "total",
   setShow(target) {
     set(() => ({ show: target }));

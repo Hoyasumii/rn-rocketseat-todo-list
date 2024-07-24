@@ -11,11 +11,12 @@ import { Colors } from "@/styles";
 import styles from "./index.styles";
 import { Controller, EmptyList, Header } from "@/elements";
 import { useTasks } from "@/storage";
+import { ListItem } from "@/components";
 
 export default function Index() {
   const [value, setValue] = useState<string>("");
   const [active, setActive] = useState<boolean>(false);
-  const { totalCount, finishedCount } = useTasks();
+  const { show, tasks, onlyFinished, setShow } = useTasks();
 
   return (
     <TouchableWithoutFeedback
@@ -36,16 +37,32 @@ export default function Index() {
         />
         <View style={styles.taskArea}>
           <Controller
-            value={[{ title: "Criadas" }, { title: "Finalizadas" }]}
+            value={[
+              {
+                title: "Criadas",
+                onPress() {
+                  setShow(show === "total" ? "finished" : "total");
+                },
+              },
+              {
+                title: "Finalizadas",
+                onPress() {
+                  setShow(show === "total" ? "finished" : "total");
+                },
+              },
+            ]}
           />
-          <FlatList<string>
+          <FlatList
             style={styles.taskAreaList}
-            data={[]}
-            keyExtractor={(i) => i}
+            data={show === "total" ? tasks : onlyFinished}
+            keyExtractor={(i) => i.name}
             renderItem={({ item, index }) => {
-              return <Text>item</Text>;
+              return <ListItem item={item} />  
             }}
             ListEmptyComponent={EmptyList}
+            ItemSeparatorComponent={() => (
+              <View style={styles.taskAreaSeparator} />
+            )}
           />
         </View>
       </View>

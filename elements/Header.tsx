@@ -3,6 +3,7 @@ import { Image, ImageSource } from "expo-image";
 import styles from "./Header.styles";
 import { Button, Input } from "@/components";
 import { SetState } from "@/types";
+import { useTasks } from "@/storage";
 
 type HeaderProps = {
   imageSrc: ImageSource;
@@ -19,10 +20,11 @@ export function Header({
   setValue,
   value,
 }: HeaderProps) {
-
+  const {append} = useTasks();
+ 
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={imageSrc}  contentFit="contain" />
+      <Image style={styles.image} source={imageSrc} contentFit="contain" />
       <View style={styles.input}>
         <Input
           value={value}
@@ -31,7 +33,10 @@ export function Header({
           active={active}
           setActive={setActive}
         />
-        <Button variation="create" />
+        <Button variation="create" onPress={() => {
+          append({ name: value });
+          setValue("");
+        }} />
       </View>
     </View>
   );

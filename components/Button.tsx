@@ -1,6 +1,7 @@
 import { Text, TouchableOpacity } from "react-native";
 import Antd from "@expo/vector-icons/AntDesign";
 import styles from "./Button.styles";
+import { Trash } from "@/assets/images/svg";
 
 type ButtonProps = {
   variation: "create" | "delete";
@@ -14,10 +15,11 @@ export function Button({ variation, onPress }: ButtonProps) {
       activeOpacity={0.9}
       style={variation === "create" ? styles.create : styles.delete}
     >
-      <Antd
-        name={variation === "create" ? "pluscircleo" : "delete"}
-        style={variation === "create" ? styles.createText : styles.deleteText}
-      />
+      {variation === "create" ? (
+        <Antd name="pluscircleo" style={styles.createText} />
+      ) : (
+        <Trash width={18} height={18} />
+      )}
     </TouchableOpacity>
   );
 }

@@ -12,7 +12,7 @@ type ControllerProps = {
 };
 
 export function Controller({ value }: ControllerProps) {
-  const { totalCount, finishedCount } = useTasks();
+  const { tasks, onlyFinished } = useTasks();
 
   return (
     <View style={styles.container}>
@@ -29,7 +29,7 @@ export function Controller({ value }: ControllerProps) {
             </Text>
             <View style={styles.amountContainer}>
               <Text style={styles.amount}>
-                {index % 2 === 0 ? finishedCount : totalCount}
+                {index % 2 === 0 ? tasks.length : onlyFinished.length}
               </Text>
             </View>
           </TouchableOpacity>
