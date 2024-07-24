@@ -1,13 +1,10 @@
 import {
-  Text,
   View,
   TouchableWithoutFeedback,
   Keyboard,
   FlatList,
-  TouchableOpacity,
 } from "react-native";
 import { useState } from "react";
-import { Colors } from "@/styles";
 import styles from "./index.styles";
 import { Controller, EmptyList, Header } from "@/elements";
 import { useTasks } from "@/storage";
@@ -57,7 +54,7 @@ export default function Index() {
             data={show === "total" ? tasks : onlyFinished}
             keyExtractor={(i) => i.name}
             renderItem={({ item, index }) => {
-              return <ListItem item={item} />  
+              return <ListItem item={item} />;
             }}
             ListEmptyComponent={EmptyList}
             ItemSeparatorComponent={() => (

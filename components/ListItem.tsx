@@ -1,15 +1,16 @@
 import { Task } from "@/types";
 import { useTasks } from "@/storage";
-import { Text, View, Alert } from "react-native";
+import { Text, View, Alert, TouchableOpacity } from "react-native";
 import { Button } from "./Button";
 import styles from "./ListItem.styles";
+import { Checkbox } from "./Checkbox";
 
 type ListItemProps = {
   item: Task;
 };
 
 export function ListItem({ item }: ListItemProps) {
-  const { remove } = useTasks();
+  const { remove, change } = useTasks();
 
   const removeItem = () => {
     Alert.alert("", `Realmente deseja remover a Task "${item.name}"? `, [
@@ -24,10 +25,15 @@ export function ListItem({ item }: ListItemProps) {
     ]);
   };
 
+  const check = () => {
+    change(item.id)
+  }
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>{item.name}</Text>
+    <TouchableOpacity activeOpacity={0.9} style={styles.container} onPress={check}>
+      <Checkbox checked={item.finished} />
+      <Text style={[styles.text, item.finished && styles.textFinished]}>{item.name}</Text>
       <Button variation="delete" onPress={removeItem} />
-    </View>
+    </TouchableOpacity>
   );
 }

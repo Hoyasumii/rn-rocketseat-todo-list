@@ -19,4 +19,8 @@ export default StyleSheet.create({
     fontFamily: "Inter-Regular",
     flex: 1,
   },
+  textFinished: {
+    color: Colors.base.gray300,
+    textDecorationLine: "line-through",
+  }
 });

@@ -39,7 +39,7 @@ export default create<Tasks>()((set) => ({
       const onlyFinished = tasks.filter((task) => task.finished);
 
       return { tasks, onlyFinished };
-    });
+    }); 
   },
   onlyFinished: [],
   show: "total",
